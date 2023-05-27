@@ -1,10 +1,14 @@
 package com.example.hubbyandroid.models;
 
 public class Users {
-    int id;
-    String nickname;
-    String password;
-    String email;
+    private int id;
+    private String nickname;
+    private String password;
+    private String email;
+
+    public Users() {
+
+    }
 
     public int getId() {
         return id;
@@ -32,5 +36,15 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
