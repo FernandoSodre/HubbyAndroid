@@ -71,11 +71,11 @@
         app:layout_constraintTop_toBottomOf="@+id/editTitulo" />
 
     <Button
-        android:id="@+id/editBtnRecuperarSenha"
+        android:id="@+id/editRegistrar"
         android:layout_width="304dp"
         android:layout_height="39dp"
         android:layout_marginTop="16dp"
-        android:text="Esqueceu a senha?"
+        android:text="Registrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
