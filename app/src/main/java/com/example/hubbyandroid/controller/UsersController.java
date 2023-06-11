@@ -1,5 +1,6 @@
 package com.example.hubbyandroid.controller;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -12,8 +13,8 @@ public class UsersController {
 
     public static final String NOME_PREFERENCES = "pref_cadastro";
 
-    public UsersController(RegisterActivity registerActivity){
-        preferences = registerActivity.getSharedPreferences(NOME_PREFERENCES,0);
+    public UsersController(Activity activity){
+        preferences = activity.getSharedPreferences(NOME_PREFERENCES,0);
         cadastro_user = preferences.edit();
     }
      @Override
@@ -28,6 +29,7 @@ public class UsersController {
         cadastro_user.putString("email", users.getEmail());
         cadastro_user.putString("senha", users.getPassword());
         cadastro_user.apply();
+
     };
 
     public Users buscar(Users users){
