@@ -10,4 +10,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="text_create_event">Criar evento</string>
+    <string name="back">Voltar</string>
+    <string name="title">Titulo</string>
+    <string name="create_event">Criar evento</string>
 </resources>
