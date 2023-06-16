@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#EB8D00"/> <!-- Cor de fundo do RelativeLayout -->
+    <corners android:radius="45dp"/> <!-- Raio do canto arredondado -->
+</shape>

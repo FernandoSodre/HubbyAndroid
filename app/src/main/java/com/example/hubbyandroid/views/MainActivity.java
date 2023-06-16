@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.hubbyandroid.R;
-import com.example.hubbyandroid.controller.UsersController;
 
 public class MainActivity extends AppCompatActivity {
-
 
 
     @Override

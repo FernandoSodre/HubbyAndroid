@@ -3,12 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/drawable-xxhdpi/rounded_buttonLogin.xml" value="0.2995" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/drawable/lineargradient.xml" value="0.2995" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/drawable/rounded_background.xml" value="0.2995" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/drawable/rounded_buttonlogin.xml" value="0.2995" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_auth.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_create_event.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_create_event.xml" value="0.21" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_history.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_login_test.xml" value="0.33" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_main2.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_main_menu.xml" value="0.25" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_search.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/criar_evento_teste.xml" value="0.22" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_main_menu.xml" value="0.18802083333333333" />

@@ -68,7 +68,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerViewListOfLocations"
+        app:layout_constraintTop_toBottomOf="@+id/mapView"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
@@ -102,7 +102,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:lineSpacingExtra="24sp"
-        android:text="MC Jean Paul"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageButtonUserIcon"
@@ -120,11 +120,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListOfLocations"
-        android:layout_width="395dp"
-        android:layout_height="257dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="411dp"
+        android:layout_height="205dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mapView" />
 
