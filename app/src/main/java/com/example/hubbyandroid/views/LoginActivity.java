@@ -56,25 +56,26 @@ public class LoginActivity extends AppCompatActivity {
                 String username = editTextEmail.getText().toString();
                 String password = editTextSenha.getText().toString();
 
+                salvaSharedPref();
+
                 login(username,password);
             }
         });
+
     }
 
     private void checkBox() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String checkBox = sharedPreferences.getString("pref_check", "");
-        if(checkBox.equals("true")) {
+        String validaSharedPref = sharedPreferences.getString("pref_check", "");
+        if(validaSharedPref.equals("true")) {
             startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
             Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.",
                         Toast.LENGTH_SHORT).show();
             finish();
 
         } else {
-
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear().apply();
-
         }
 
     }
@@ -95,12 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             FirebaseUser user = mAuth.getCurrentUser();
-                            if(checkBoxManterLogado.isChecked()){
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("pref_check", "true");
-                                editor.apply();
-                            }
+
                             startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
                             Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.",
                                     Toast.LENGTH_SHORT).show();
@@ -111,4 +107,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
+    private void salvaSharedPref(){
+        if(checkBoxManterLogado.isChecked()) {
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("pref_check", "true");
+            editor.apply();
+        }
+
+    }
+
 }
