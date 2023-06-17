@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="options_array">
+        <item>Futebol</item>
+        <item>Volei</item>
+        <item>Sinuca</item>
+        <item>Magic</item>
+        <item>Volei de areia</item>
+        <item>Handball</item>
+        <item>Basquete</item>
+        <item>Xadrez</item>
+    </string-array>
+</resources>
