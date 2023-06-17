@@ -13,4 +13,7 @@
     <string name="back">Voltar</string>
     <string name="title">Titulo</string>
     <string name="create_event">Criar evento</string>
+    <string name="default_info_title">brasil</string>
+    <string name="default_info_snippet">brasil</string>
+    <string name="pick_place">Pegar lugar</string>
 </resources>

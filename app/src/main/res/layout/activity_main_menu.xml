@@ -7,15 +7,34 @@
     android:background="@drawable/lineargradient"
     tools:context=".views.MainMenuActivity">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="0dp"
-        android:layout_height="299dp"
-        android:layout_marginTop="28dp"
+    <ImageView
+        android:id="@+id/imageButtonUserIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <fragment
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="393dp"
+        android:layout_height="338dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textUserLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/textUserRate"
+        map:mapType="normal"
+        map:cameraZoom="10"
+        map:uiRotateGestures="true"
+        map:uiTiltGestures="true"
+        map:uiZoomGestures="true"
+        map:uiZoomControls="true"/>
 
     <TextView
         android:id="@+id/textUserRate"
@@ -26,15 +45,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageUserRateIcon"
         app:layout_constraintStart_toEndOf="@+id/imageUserRateIcon"
         app:layout_constraintTop_toTopOf="@+id/imageUserRateIcon"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0"/>
 
     <ImageView
         android:id="@+id/imageUserRateIcon"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonUserIcon"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonUserIcon"
         app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -45,7 +64,6 @@
         android:layout_marginTop="4dp"
         android:gravity="center_vertical"
         android:text="Porto Alegre, RS"
-        android:textAlignment="viewStart"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@+id/imageLocationIcon"
         app:layout_constraintTop_toBottomOf="@+id/textUsername" />
@@ -67,9 +85,7 @@
         android:background="@drawable/ic_add_event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/imageButtonOpenHistoryMenu"
@@ -108,24 +124,14 @@
         app:layout_constraintStart_toEndOf="@+id/imageButtonUserIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageButtonUserIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListOfLocations"
-        android:layout_width="411dp"
-        android:layout_height="205dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="387dp"
+        android:layout_height="228dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonOpenAddEvent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapView" />
+        app:layout_constraintTop_toBottomOf="@+id/map"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

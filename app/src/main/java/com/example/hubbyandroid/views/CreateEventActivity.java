@@ -18,6 +18,7 @@ import com.example.hubbyandroid.R;
 import com.example.hubbyandroid.controller.Evento;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.Marker;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 
 public class CreateEventActivity extends AppCompatActivity {
 
+    private EditText eventLocale;
     private Spinner spinnerSelectCategory;
     private EditText editTextTitle;
     private EditText editTextDateEvent;
@@ -39,20 +41,29 @@ public class CreateEventActivity extends AppCompatActivity {
 
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+    private Double latitude;
+    private Double longitude;
+    private String locale;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
-        Log.d("estate", "indo criar");
+
+        latitude = getIntent().getDoubleExtra("latitude", 0);
+        longitude = getIntent().getDoubleExtra("longitude", 0);
 
         spinnerSelectCategory = findViewById(R.id.spinnerSelectCategory);
         editTextTitle = findViewById(R.id.editTitleEvent);
         editTextDateEvent = findViewById(R.id.editTextDate);
         editTextTimeEvent = findViewById(R.id.editTextTime);
-        editTextLocal = findViewById(R.id.editTextText2);
+        editTextLocal = findViewById(R.id.localeEvent);
         editTextDescription = findViewById(R.id.editTextTextMultiLine);
         buttonCriarEvento = findViewById((R.id.buttonCriar));
+
+        locale = "lat " + latitude + ", lon" + longitude;
+
+        editTextLocal.setText( locale );
 
         buttonCriarEvento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,8 +73,6 @@ public class CreateEventActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void CriarEvento(String title, String date, String time, String local, String description, String category){
@@ -88,6 +97,7 @@ public class CreateEventActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Erro ao cadastrar evento: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+        eventLocale = findViewById(R.id.localeEvent);
     }
 
     private void ContadorEvento(){
