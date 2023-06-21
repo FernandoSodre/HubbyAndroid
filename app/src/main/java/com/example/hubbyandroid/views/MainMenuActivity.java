@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -55,6 +56,9 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
     private DatabaseReference mUsersRef;
     private TextView textUser;
     private ImageButton addEventButton;
+    private ImageButton logOut;
+
+    public static final String SHARED_PREFS = "shared_pref";
 
     private View view;
     private GoogleMap myMap;
@@ -82,6 +86,22 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_main_menu);
 
         pegaUsername();
+
+        logOut = findViewById(R.id.imagemButtonLogout);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("pref_check", " ");
+                editor.apply();
+
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         addEventButton = findViewById(R.id.imageButtonOpenAddEvent);
 

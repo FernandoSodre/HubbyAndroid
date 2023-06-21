@@ -111,6 +111,18 @@
         app:layout_constraintTop_toTopOf="@+id/imageButtonOpenAddEvent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <ImageButton
+        android:id="@+id/imagemButtonLogout"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/ic_logout"
+        app:layout_constraintBottom_toTopOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.436" />
+
     <TextView
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
