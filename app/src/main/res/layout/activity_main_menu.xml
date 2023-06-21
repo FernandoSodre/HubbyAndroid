@@ -138,8 +138,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListOfLocations"
-        android:layout_width="387dp"
-        android:layout_height="228dp"
+        android:layout_width="383dp"
+        android:layout_height="188dp"
         app:layout_constraintBottom_toTopOf="@+id/imageButtonOpenAddEvent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,8 +1,8 @@
 package com.example.hubbyandroid.models;
 
 public class Events {
-    int id;
-    String name;
+    //int id;
+    String title;
     Boolean particular;
     String category;
     String inviteLink;
@@ -10,18 +10,18 @@ public class Events {
     String dateEnd;
     String location;
 
-    public int getId() {
-        return id;
+//    public int getId() {
+//        return id;
+//    }
+
+    public String getTitle() {
+        return title;
     }
 
-    public String getName() {
-        return name;
+    public void setTitle(String title) {
+        this.title = title;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+/*
     public Boolean getParticular() {
         return particular;
     }
@@ -68,5 +68,5 @@ public class Events {
 
     public void setLocation(String location) {
         this.location = location;
-    }
+    }*/
 }

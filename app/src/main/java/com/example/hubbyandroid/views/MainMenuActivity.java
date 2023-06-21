@@ -1,8 +1,5 @@
 package com.example.hubbyandroid.views;
 
-import static android.content.ContentValues.TAG;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,8 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hubbyandroid.R;
+import com.example.hubbyandroid.adapter.EventsAdapter;
+import com.example.hubbyandroid.controller.Evento;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -47,6 +48,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +59,11 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
     private TextView textUser;
     private ImageButton addEventButton;
     private ImageButton logOut;
+
+     RecyclerView recyclerView;
+     DatabaseReference database;
+     EventsAdapter eventsAdapter;
+     ArrayList<Evento> list;
 
     public static final String SHARED_PREFS = "shared_pref";
 
@@ -85,10 +92,36 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+
+        recyclerView = findViewById(R.id.recyclerViewListOfLocations);
+        database = FirebaseDatabase.getInstance().getReference("Eventos");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        list = new ArrayList<Evento>();
+        eventsAdapter = new EventsAdapter(this, list);
+        recyclerView.setAdapter(eventsAdapter);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Evento evento = dataSnapshot.getValue(Evento.class);
+                    list.add(evento);
+                }
+                eventsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+
         pegaUsername();
 
-        logOut = findViewById(R.id.imagemButtonLogout);
 
+        logOut = findViewById(R.id.imagemButtonLogout);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

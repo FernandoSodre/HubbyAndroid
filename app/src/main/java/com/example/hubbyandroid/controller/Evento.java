@@ -12,22 +12,17 @@ public class Evento {
     private String descricao;
     private String categoria;
 
+    public Evento(){};
+
     public Evento(String id, String titulo, String data, String hora, String local, String descricao, String categoria) {
-        this.id = id;
+
         this.titulo = titulo;
+        this.id = id;
         this.data = data;
         this.hora = hora;
         this.local = local;
         this.descricao = descricao;
         this.categoria = categoria;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getTitulo() {
@@ -36,6 +31,14 @@ public class Evento {
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+   public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getData() {
