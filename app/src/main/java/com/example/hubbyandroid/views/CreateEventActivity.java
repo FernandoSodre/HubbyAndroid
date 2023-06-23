@@ -4,29 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hubbyandroid.R;
-import com.example.hubbyandroid.controller.Evento;
+import com.example.hubbyandroid.models.Evento;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.maps.model.Marker;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
-
-import java.util.ArrayList;
 
 public class CreateEventActivity extends AppCompatActivity {
 
@@ -59,7 +50,7 @@ public class CreateEventActivity extends AppCompatActivity {
         editTextTimeEvent = findViewById(R.id.editTextTime);
         editTextLocal = findViewById(R.id.localeEvent);
         editTextDescription = findViewById(R.id.editTextTextMultiLine);
-        buttonCriarEvento = findViewById((R.id.buttonCriar));
+        buttonCriarEvento = findViewById((R.id.buttonEntrar));
 
         locale = "lat " + latitude + ", lon" + longitude;
 
@@ -80,7 +71,10 @@ public class CreateEventActivity extends AppCompatActivity {
         DatabaseReference novoEventoRef = eventosRef.push(); // Cria um novo nó com uma chave gerada automaticamente
         String novoEventoID = novoEventoRef.getKey(); // Obtém a chave gerada
 
-        Evento novoEvento = new Evento(novoEventoID, editTextTitle.getText().toString(), editTextDateEvent.getText().toString(), editTextTimeEvent.getText().toString(),editTextLocal.getText().toString(), editTextDescription.getText().toString(), spinnerSelectCategory.getSelectedItem().toString());
+        Evento novoEvento = new Evento(novoEventoID, title, date, time, local, description, category);
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        novoEvento.adicionarParticipante(userID);
 
         novoEventoRef.setValue(novoEvento).
                 addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -88,6 +82,27 @@ public class CreateEventActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         // O evento foi salvo com sucesso
                         Toast.makeText(getApplicationContext(), "Evento cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+                        /* REMOVIDO POIS AGORA CRIAMOS ADICIONANDO O PARTICIPANTE NA CLASSE E NAO CRIANDO UM PARTICIPANTE COMO ABAIXO
+                        DatabaseReference participantesRef = FirebaseDatabase.getInstance().getReference("Eventos")
+                                .child(novoEventoID)
+                                .child("Participantes")
+                                .child(userID);
+
+                        participantesRef.setValue(true)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        // O participante foi salvo com sucesso
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(Exception e) {
+                                        // Ocorreu um erro ao salvar o participante
+                                        Toast.makeText(getApplicationContext(), "Erro ao adicionar participante: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });*/
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -98,30 +113,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     }
                 });
         eventLocale = findViewById(R.id.localeEvent);
-    }
-
-    private void ContadorEvento(){
-        DatabaseReference countersRef = FirebaseDatabase.getInstance().getReference("Contador/contadorIDEvento");
-
-        countersRef.runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData currentData) {
-                Integer currentValue = currentData.getValue(Integer.class);
-                if(currentValue == null){
-                    currentData.setValue(0);
-                } else{
-                    currentData.setValue(currentValue + 1);
-                }
-                return Transaction.success(currentData);
-            }
-
-            @Override
-            public void onComplete(DatabaseError error, boolean committed, DataSnapshot currentData) {
-                if (committed){
-                    Integer incrementedValue = currentData.getValue(Integer.class);
-                }
-            }
-        });
     }
 
     private void populateSpinner()

@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hubbyandroid.R;
-import com.example.hubbyandroid.controller.Evento;
+import com.example.hubbyandroid.models.Evento;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Eventsview
         return new EventsviewHolder(v);
     }
 
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onBindViewHolder(EventsviewHolder holder, int position) {
 
@@ -44,6 +50,19 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Eventsview
         holder.descriptionEvent.setText(evento.getDescricao());
         holder.categoryEvent.setText(evento.getCategoria());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(evento.getId());
+                }
+            }
+        });
+
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String id);
     }
 
     @Override

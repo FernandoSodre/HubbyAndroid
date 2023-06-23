@@ -20,9 +20,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hubbyandroid.DetailEventActivity;
 import com.example.hubbyandroid.R;
 import com.example.hubbyandroid.adapter.EventsAdapter;
-import com.example.hubbyandroid.controller.Evento;
+import com.example.hubbyandroid.models.Evento;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,7 +53,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCallback,EventsAdapter.OnItemClickListener {
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mUsersRef;
@@ -92,7 +93,6 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-
         recyclerView = findViewById(R.id.recyclerViewListOfLocations);
         database = FirebaseDatabase.getInstance().getReference("Eventos");
         recyclerView.setHasFixedSize(true);
@@ -100,6 +100,8 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
         list = new ArrayList<Evento>();
         eventsAdapter = new EventsAdapter(this, list);
         recyclerView.setAdapter(eventsAdapter);
+
+        eventsAdapter.setOnItemClickListener(this);
 
         database.addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,9 +119,7 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-
         pegaUsername();
-
 
         logOut = findViewById(R.id.imagemButtonLogout);
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -466,5 +466,12 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
 
             }
         });
+    }
+
+    @Override
+    public void onItemClick(String id) {
+        Intent intent = new Intent(MainMenuActivity.this, DetailEventActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 }
