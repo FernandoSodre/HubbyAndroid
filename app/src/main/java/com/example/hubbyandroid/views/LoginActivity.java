@@ -1,9 +1,6 @@
 package com.example.hubbyandroid.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,28 +8,27 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.hubbyandroid.R;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.hubbyandroid.controller.LoginController;
+import com.example.hubbyandroid.interfaces.LoginCallback;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginCallback {
 
     private EditText editTextEmail;
     private EditText editTextSenha;
     private Button loginButton;
     private TextView linkTextView;
     private CheckBox checkBoxManterLogado;
-    public static final String SHARED_PREFS = "shared_pref";
+    private LoginController loginController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginController = new LoginController(this);
 
         editTextEmail = findViewById(R.id.editEmail);
         editTextSenha = findViewById(R.id.editSenha);
@@ -40,81 +36,48 @@ public class LoginActivity extends AppCompatActivity {
         linkTextView = findViewById(R.id.login);
         checkBoxManterLogado = findViewById(R.id.boxManterLogado);
 
+        linkTextView.setOnClickListener(this);
+        loginButton.setOnClickListener(this);
+
         checkBox();
-
-        linkTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = editTextEmail.getText().toString();
-                String password = editTextSenha.getText().toString();
-
-                salvaSharedPref();
-
-                login(username,password);
-            }
-        });
-
     }
 
     private void checkBox() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        String validaSharedPref = sharedPreferences.getString("pref_check", "");
-        if(validaSharedPref.equals("true")) {
+        if (loginController.isUserLoggedIn()) {
             startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
-            Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.",
-                        Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.", Toast.LENGTH_SHORT).show();
             finish();
-
         } else {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear().apply();
+            loginController.saveSharedPref(false);
         }
-
     }
 
-    private FirebaseAuth mAuth;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.buttonLogin:
+                String username = editTextEmail.getText().toString();
+                String password = editTextSenha.getText().toString();
 
-    public FirebaseAuth getmAuth() {
-        mAuth = FirebaseAuth.getInstance();
-        return mAuth;
-    }
+                loginController.saveSharedPref(checkBoxManterLogado.isChecked());
+                loginController.login(username, password, this);
+                break;
 
-    private void login(String email, String password){
-        getmAuth();
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
-                            Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.",
-                                    Toast.LENGTH_SHORT).show();
-                        } else{
-                            Toast.makeText(LoginActivity.this, "Falha no login.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-    private void salvaSharedPref(){
-        if(checkBoxManterLogado.isChecked()) {
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("pref_check", "true");
-            editor.apply();
+            case R.id.login:
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                break;
         }
-
     }
 
+    @Override
+    public void onLoginSuccess(FirebaseUser user) {
+        startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
+        Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoginFailure() {
+        Toast.makeText(LoginActivity.this, "Falha no login.", Toast.LENGTH_SHORT).show();
+    }
 }
