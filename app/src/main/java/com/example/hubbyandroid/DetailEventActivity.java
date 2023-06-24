@@ -7,8 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hubbyandroid.models.Evento;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +55,8 @@ public class DetailEventActivity extends AppCompatActivity {
         btnEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String participanteID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                adicionarParticipante(eventoID,participanteID);
             }
         });
     }
@@ -84,5 +89,22 @@ public class DetailEventActivity extends AppCompatActivity {
         descricao.setText(evento.getDescricao());
     }
 
+
+    private void adicionarParticipante(String eventoID, String participanteID) {
+        DatabaseReference eventoRef = FirebaseDatabase.getInstance().getReference("Eventos").child(eventoID).child("participantes");
+        eventoRef.child(participanteID).setValue(true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Entrou no evento com sucesso", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure( Exception e) {
+                        Toast.makeText(getApplicationContext(), "Erro ao adicionar participante: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 }
