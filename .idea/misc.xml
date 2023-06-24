@@ -10,7 +10,7 @@
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/drawable/rounded_buttonnav.xml" value="0.2995" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_auth.xml" value="0.358695652173913" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_create_event.xml" value="0.21" />
-        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_detail_event.xml" value="0.33" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_detail_event.xml" value="0.1" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_events.xml" value="0.33" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_history.xml" value="0.358695652173913" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -21,6 +21,8 @@
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/activity_search.xml" value="0.358695652173913" />
         <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/criar_evento_teste.xml" value="0.22" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/custom_info_contents.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fsodr/AndroidStudioProjects/HubbyAndroid/app/src/main/res/layout/item_participante.xml" value="0.365625" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_main.xml" value="0.14" />
         <entry key="..\:/Users/leon heck branchi/AndroidProjetoHubby/app/src/main/res/layout/activity_main_menu.xml" value="0.18802083333333333" />
