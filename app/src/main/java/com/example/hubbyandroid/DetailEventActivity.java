@@ -144,7 +144,7 @@ public class DetailEventActivity extends AppCompatActivity {
         categoria.setText(evento.getCategoria());
         data.setText(evento.getData());
         hora.setText(evento.getHora());
-        local.setText(evento.getLocal());
+        local.setText(evento.getEndereco());
         descricao.setText(evento.getDescricao());
     }
 

@@ -11,6 +11,7 @@ public class Evento {
     private String local;
     private String descricao;
     private String categoria;
+    private String endereco;
 
     public Evento(){};
 
@@ -80,5 +81,10 @@ public class Evento {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
+    public String getEndereco() {
+        return endereco;
+    }
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 }

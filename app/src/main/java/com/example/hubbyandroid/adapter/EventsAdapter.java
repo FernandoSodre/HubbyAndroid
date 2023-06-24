@@ -42,11 +42,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Eventsview
     public void onBindViewHolder(EventsviewHolder holder, int position) {
 
         Evento evento = list.get(position);
-        holder.id.setText(evento.getId());
         holder.title.setText(evento.getTitulo());
         holder.dateEvent.setText(evento.getData());
         holder.timeEvent.setText(evento.getHora());
-        holder.localEvent.setText(evento.getLocal());
+        holder.localEvent.setText(evento.getEndereco());
         holder.descriptionEvent.setText(evento.getDescricao());
         holder.categoryEvent.setText(evento.getCategoria());
 
@@ -76,7 +75,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Eventsview
 
         public EventsviewHolder(View itemView) {
             super(itemView);
-            id = itemView.findViewById(R.id.idEvento);
             title = itemView.findViewById(R.id.nomeEvento);
             dateEvent = itemView.findViewById(R.id.dateEvent);
             timeEvent = itemView.findViewById(R.id.timeEvent);

@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.hubbyandroid.R;
 import com.example.hubbyandroid.models.Evento;
+import com.example.hubbyandroid.service.Geocode;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +38,10 @@ public class CreateEventActivity extends AppCompatActivity {
     private Double longitude;
     private String locale;
 
+    private String endereco;
+
+    Geocode geocode = new Geocode();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,8 @@ public class CreateEventActivity extends AppCompatActivity {
 
         latitude = getIntent().getDoubleExtra("latitude", 0);
         longitude = getIntent().getDoubleExtra("longitude", 0);
+
+        endereco = geocode.getAddressByLatLng(new LatLng(latitude, longitude));
 
         spinnerSelectCategory = findViewById(R.id.spinnerSelectCategory);
         editTextTitle = findViewById(R.id.editTitleEvent);
@@ -52,26 +60,29 @@ public class CreateEventActivity extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextTextMultiLine);
         buttonCriarEvento = findViewById((R.id.buttonEntrar));
 
-        locale = "lat " + latitude + ", lon" + longitude;
+        locale = latitude + ";" + longitude;
 
-        editTextLocal.setText( locale );
+        editTextLocal.setText( endereco );
+        editTextLocal.setFocusable(false);
 
         buttonCriarEvento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CriarEvento(editTextTitle.getText().toString(),editTextDateEvent.getText().toString(),editTextTimeEvent.getText().toString(),editTextLocal.getText().toString(),editTextDescription.getText().toString(),spinnerSelectCategory.getSelectedItem().toString());
+                CriarEvento(editTextTitle.getText().toString(), editTextDateEvent.getText().toString(), editTextTimeEvent.getText().toString(), editTextDescription.getText().toString(), spinnerSelectCategory.getSelectedItem().toString());
                 Intent intent = new Intent(CreateEventActivity.this, MainMenuActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    private void CriarEvento(String title, String date, String time, String local, String description, String category){
+    private void CriarEvento(String title, String date, String time, String description, String category){
         DatabaseReference eventosRef = FirebaseDatabase.getInstance().getReference("Eventos");
         DatabaseReference novoEventoRef = eventosRef.push(); // Cria um novo nó com uma chave gerada automaticamente
         String novoEventoID = novoEventoRef.getKey(); // Obtém a chave gerada
 
-        Evento novoEvento = new Evento(novoEventoID, title, date, time, local, description, category);
+        Evento novoEvento = new Evento(novoEventoID, title, date, time, locale, description, category);
+
+        novoEvento.setEndereco(endereco);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 

@@ -1,6 +1,7 @@
 package com.example.hubbyandroid.views;
 
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,7 +56,6 @@ import java.util.List;
 
 public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCallback,EventsAdapter.OnItemClickListener {
 
-    private FirebaseDatabase mDatabase;
     private DatabaseReference mUsersRef;
     private TextView textUser;
     private ImageButton addEventButton;
@@ -93,49 +93,40 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        recyclerView = findViewById(R.id.recyclerViewListOfLocations);
+        initInterface();
+
+        if (savedInstanceState != null) {
+            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        }
+    }
+
+    private void initInterface()
+    {
         database = FirebaseDatabase.getInstance().getReference("Eventos");
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<Evento>();
-        eventsAdapter = new EventsAdapter(this, list);
-        recyclerView.setAdapter(eventsAdapter);
-
-        eventsAdapter.setOnItemClickListener(this);
-
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Evento evento = dataSnapshot.getValue(Evento.class);
-                    list.add(evento);
-                }
-                eventsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
 
         pegaUsername();
 
-        logOut = findViewById(R.id.imagemButtonLogout);
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("pref_check", " ");
-                editor.apply();
+        configRecyclerView();
+        configAddEventButton();
+        configLogOutButton();
+        initGoogleMaps();
+    }
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+    private void initGoogleMaps()
+    {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        // Get a handle to the fragment and register the callback.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        view = mapFragment.getView();
+    }
+
+    private void configAddEventButton()
+    {
         addEventButton = findViewById(R.id.imageButtonOpenAddEvent);
 
         addEventButton.setClickable(false);
@@ -152,21 +143,54 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
 
             }
         });
+    }
 
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+    private void configLogOutButton()
+    {
+        logOut = findViewById(R.id.imagemButtonLogout);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("pref_check", " ");
+                editor.apply();
 
-        // Get a handle to the fragment and register the callback.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
-        view = mapFragment.getView();
+    private void configRecyclerView()
+    {
+        recyclerView = findViewById(R.id.recyclerViewListOfLocations);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-        }
+        list = new ArrayList<Evento>();
+        eventsAdapter = new EventsAdapter(this, list);
+        recyclerView.setAdapter(eventsAdapter);
 
+        eventsAdapter.setOnItemClickListener(this);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Evento evento = dataSnapshot.getValue(Evento.class);
+                    list.add(evento);
+                }
+                eventsAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     private void getLocationPermission() {
@@ -445,8 +469,7 @@ public class MainMenuActivity extends AppCompatActivity implements OnMapReadyCal
 
     private void pegaUsername(){
         textUser = findViewById(R.id.textUsername);
-        mDatabase = FirebaseDatabase.getInstance();
-        mUsersRef = mDatabase.getReference("Usuarios");
+        mUsersRef = FirebaseDatabase.getInstance().getReference("Usuarios");
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentUser.getUid();
