@@ -54,13 +54,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
+
             case R.id.buttonLogin:
                 String username = editTextEmail.getText().toString();
                 String password = editTextSenha.getText().toString();
 
-                loginController.saveSharedPref(checkBoxManterLogado.isChecked());
-                loginController.login(username, password, this);
+                if(username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Preencha todos os campos",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    loginController.saveSharedPref(checkBoxManterLogado.isChecked());
+                    loginController.login(username, password, this);
+                }
                 break;
 
             case R.id.login:
