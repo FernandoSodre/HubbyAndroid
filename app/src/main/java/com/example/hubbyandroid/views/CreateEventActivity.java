@@ -74,7 +74,6 @@ public class CreateEventActivity extends AppCompatActivity {
         Evento novoEvento = new Evento(novoEventoID, title, date, time, local, description, category);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        novoEvento.adicionarParticipante(userID);
 
         novoEventoRef.setValue(novoEvento).
                 addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -82,7 +81,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         // O evento foi salvo com sucesso
                         Toast.makeText(getApplicationContext(), "Evento cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-                        /* REMOVIDO POIS AGORA CRIAMOS ADICIONANDO O PARTICIPANTE NA CLASSE E NAO CRIANDO UM PARTICIPANTE COMO ABAIXO
                         DatabaseReference participantesRef = FirebaseDatabase.getInstance().getReference("Eventos")
                                 .child(novoEventoID)
                                 .child("Participantes")
@@ -101,7 +99,7 @@ public class CreateEventActivity extends AppCompatActivity {
                                         // Ocorreu um erro ao salvar o participante
                                         Toast.makeText(getApplicationContext(), "Erro ao adicionar participante: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                });*/
+                                });
 
                     }
                 })
