@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onLoginSuccess(FirebaseUser user) {
         startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
         Toast.makeText(LoginActivity.this, "Login efetuado com sucesso!.", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

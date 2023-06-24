@@ -8,10 +8,11 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="0px"
-        android:layout_height="0px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:textColor="#ff000000"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
@@ -20,11 +21,4 @@
         android:layout_height="0px"
         android:textColor="#ff7f7f7f" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/quantum_amber900"
-        android:baselineAligned="false"
-        android:text="Criar evento" />
 </LinearLayout>

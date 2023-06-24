@@ -11,72 +11,29 @@
         android:id="@+id/imageButtonUserIcon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <fragment
-        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="393dp"
-        android:layout_height="338dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="394dp"
+        android:layout_height="345dp"
+        android:layout_marginTop="20dp"
+        app:cameraZoom="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textUserRate"
-        map:mapType="normal"
-        map:cameraZoom="10"
-        map:uiRotateGestures="true"
-        map:uiTiltGestures="true"
-        map:uiZoomGestures="true"
-        map:uiZoomControls="true"/>
-
-    <TextView
-        android:id="@+id/textUserRate"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:text="5.0"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imageUserRateIcon"
-        app:layout_constraintStart_toEndOf="@+id/imageUserRateIcon"
-        app:layout_constraintTop_toTopOf="@+id/imageUserRateIcon"
-        app:layout_constraintVertical_bias="0.0"/>
-
-    <ImageView
-        android:id="@+id/imageUserRateIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/imageButtonUserIcon"
         app:layout_constraintTop_toBottomOf="@+id/imageButtonUserIcon"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
-
-    <TextView
-        android:id="@+id/textUserLocation"
-        android:layout_width="106dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:text="Porto Alegre, RS"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/imageLocationIcon"
-        app:layout_constraintTop_toBottomOf="@+id/textUsername" />
-
-    <ImageView
-        android:id="@+id/imageLocationIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonUserIcon"
-        app:layout_constraintTop_toBottomOf="@+id/textUsername"
-        app:srcCompat="@drawable/ic_action_name" />
+        app:mapType="normal"
+        app:uiRotateGestures="true"
+        app:uiTiltGestures="true"
+        app:uiZoomControls="true"
+        app:uiZoomGestures="true" />
 
     <ImageButton
         android:id="@+id/imageButtonOpenAddEvent"
@@ -86,30 +43,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButtonOpenHistoryMenu"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/ic_history_event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonOpenAddEvent"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonOpenAddEvent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/imageButtonOpenSearchMenu"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/ic_search_event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButtonOpenAddEvent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButtonOpenAddEvent"
-        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/imagemButtonLogout"
@@ -127,8 +60,8 @@
         android:id="@+id/textUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
         android:lineSpacingExtra="24sp"
         android:text=""
         android:textColor="@color/white"
@@ -138,8 +71,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewListOfLocations"
-        android:layout_width="383dp"
-        android:layout_height="188dp"
+        android:layout_width="388dp"
+        android:layout_height="267dp"
         app:layout_constraintBottom_toTopOf="@+id/imageButtonOpenAddEvent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
